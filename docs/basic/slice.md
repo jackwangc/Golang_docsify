@@ -40,6 +40,7 @@
 2. `make` 返回的还是这三个引用类型本身；而 `new` 返回的是指向类型的指针。
 3. `make`函数是无可替代的，我们在使用slice、map以及channel的时候，还是要使用make进行初始化
 4. `new` 可以用短语句声明替代
+   
 ## slice
 
 ### array
@@ -159,7 +160,20 @@ var pp = Person(Base{Name: "jack"})
 
 ## 并发
 
+### 组件
 
+1. goroutine 是一种比线程更加轻盈，更省资源的协程。简称 轻量级线程。可以创建很多个。
+   1. 语言级别支持，协程切换不依赖于系统的线程和进程
+   2. 内存占用少，调度开销少
+
+2. goroutine 间的通信方式：channel (进程内的通信方式)
+   1. channel（管道）: 类型相关，声明时必须指定类型
+3. select:解决超时
+
+### channel
+
+1. [golang channel 使用总结](http://litang.me/post/golang-channel/#%E5%86%85%E9%83%A8%E5%AE%9E%E7%8E%B0)
+2. [深度解密Go语言之channel](https://juejin.im/post/5d350e70f265da1b897b0cbe)
 ---
 
 ## 参考

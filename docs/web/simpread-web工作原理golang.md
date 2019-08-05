@@ -1,6 +1,6 @@
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.3.md
 
-3.3 Go 如何使得 Web 工作
+## Go 如何使得 Web 工作
 ==================
 
 前面小节介绍了如何通过 Go 搭建一个 Web 服务，我们可以看到简单应用一个 net/http 包就方便的搭建起来了。那么 Go 在底层到底是怎么做的呢？万变不离其宗，Go 的 Web 服务工作也离不开我们第一小节介绍的 Web 工作方式。
@@ -44,7 +44,7 @@ Handler：处理请求和生成返回信息的处理逻辑
 
 下面代码来自 Go 的 http 包的源码，通过下面的代码我们可以看到整个的 http 处理过程：
 
-```
+```go
 func (srv *Server) Serve(l net.Listener) error {
 	defer l.Close()
 	var tempDelay time.Duration // how long to sleep on accept failure
@@ -74,8 +74,6 @@ func (srv *Server) Serve(l net.Listener) error {
 		go c.serve()
 	}
 }
-
-
 ```
 
 监控之后如何接收客户端的请求呢？上面代码执行监控端口之后，调用了`srv.Serve(net.Listener)`函数，这个函数就是处理接收客户端的请求信息。这个函数里面起了一个`for{}`，首先通过 Listener 接收请求，其次创建一个 Conn，最后单独开了一个 goroutine，把这个请求的数据当做参数扔给这个 conn 去服务：`go c.serve()`。这个就是高并发体现了，用户的每一次请求都是在一个新的 goroutine 去服务，相互不影响。
@@ -84,7 +82,7 @@ func (srv *Server) Serve(l net.Listener) error {
 
 详细的整个流程如下图所示：
 
-[![](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/3.3.illustrator.png?raw=true)](/astaxie/build-web-application-with-golang/blob/master/zh/images/3.3.illustrator.png?raw=true)
+[![pic](https://github.com/astaxie/build-web-application-with-golang/raw/master/zh/images/3.3.illustrator.png?raw=true)](/astaxie/build-web-application-with-golang/blob/master/zh/images/3.3.illustrator.png?raw=true)
 
 图 3.10 一个 http 连接处理流程
 

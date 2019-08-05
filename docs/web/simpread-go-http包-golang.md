@@ -1,6 +1,6 @@
 > 本文由 [简悦 SimpRead](http://ksria.com/simpread/) 转码， 原文地址 https://github.com/astaxie/build-web-application-with-golang/blob/master/zh/03.4.md
 
-3.4 Go 的 http 包详解
+## Go 的 http 包详解
 =================
 
 前面小节介绍了 Go 怎么样实现了 Web 工作模式的一个流程，这一小节，我们将详细地解剖一下 http 包，看它到底是怎样实现整个过程的。
@@ -132,7 +132,7 @@ func (mux *ServeMux) handler(host, path string) (h Handler, pattern string) {
 
 如下代码所示，我们自己实现了一个简易的路由器
 
-```
+```go
 package main
 
 import (
